@@ -22,6 +22,7 @@ const userSchema = new Schema(
       required: true,
     },
     // set savedBooks to be an array of data that adheres to the bookSchema
+    // bookSchema is a child of this table
     savedBooks: [bookSchema],
   },
   // set this to use virtual below
