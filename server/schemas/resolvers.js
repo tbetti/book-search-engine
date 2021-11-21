@@ -30,8 +30,8 @@ const resolvers = {
             const token = signToken(user);
             return {token, user};
         },
-        login: async (parent, {args}) =>{
-            const user = await User.findOne(args.email);
+        login: async (parent, args) =>{
+            const user = await User.findOne({email: args.email});
             const validatePw = await user.isCorrectPassword(args.password);
             const token = signToken(user);
 
