@@ -16,17 +16,21 @@ const resolvers = {
             }
 
             throw new AuthenticationError('Not logged in!');
+        },
+        getUsers: async (parent, args) =>{
+            return User.find();
         }
     },
 
     Mutation: {
         // args could also be destructured as {username, password}
         addUser: async (parent, args) =>{
+            console.log(args);
             const user = await User.create(args);
             const token = signToken(user);
             return {token, user};
         },
-        login: async (parent, args) =>{
+        login: async (parent, {args}) =>{
             const user = await User.findOne(args.email);
             const validatePw = await user.isCorrectPassword(args.password);
             const token = signToken(user);
